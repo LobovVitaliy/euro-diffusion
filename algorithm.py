@@ -9,9 +9,26 @@ class Algorithm(object):
     # parses country from string and adds this country
     def add_country(self, string):
         name, *coordinates = string.split()
+
+        if len(name) > 25:
+            raise Exception('Name has more than 25 characters')
+
         # translate into integer value ​​and
         # add a new coordinate system relative to the point (0;0)
         xl, yl, xh, yh = map(lambda p: int(p) - 1, coordinates)
+
+        if not 0 <= xl <= 9:
+            raise Exception('1 ≤ xl ≤ 10')
+
+        if not 0 <= yl <= 9:
+            raise Exception('1 ≤ yl ≤ 10')
+
+        if not 0 <= xh <= 9:
+            raise Exception('1 ≤ xh ≤ 10')
+
+        if not 0 <= yl <= 9:
+            raise Exception('1 ≤ yl ≤ 10')
+
         self.countries.append(Country(name, xl, yl, xh, yh))
 
     # creates an empty area where cities are located
