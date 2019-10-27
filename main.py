@@ -1,4 +1,3 @@
-from tasks import TaskList, Task
 from algorithm import Algorithm
 
 
@@ -15,19 +14,19 @@ def main():
     with open('file', 'r') as file:
         country_count = int(file.readline())
 
-        tasks = TaskList()
+        tasks = []
 
         while country_count:
             if not 1 <= country_count <= 20:
                 print('Error: The number of countries (1 ≤ c ≤ 20)')
                 return
 
-            task = Task()
+            lines = []
 
             for i in range(country_count):
-                task.add(file.readline())
+                lines.append(file.readline())
 
-            tasks.add(task)
+            tasks.append(lines)
 
             country_count = int(file.readline())
 
@@ -35,11 +34,11 @@ def main():
 
     case_number = 1
 
-    for task in tasks.list:
+    for lines in tasks:
         try:
             algorithm = Algorithm()
 
-            for line in task.lines:
+            for line in lines:
                 algorithm.add_country(line)
 
             print_result(case_number, algorithm.run())
