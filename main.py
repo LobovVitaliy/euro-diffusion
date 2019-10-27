@@ -17,7 +17,7 @@ def fill_tasks(filename):
         while country_count:
             if not 1 <= country_count <= 20:
                 print('Error: The number of countries (1 ≤ c ≤ 20)')
-                return
+                return None
 
             lines = []
 
@@ -51,7 +51,9 @@ def make_tasks(tasks):
 
 def main():
     tasks = fill_tasks('file')
-    make_tasks(tasks)
+
+    if tasks:
+        make_tasks(tasks)
 
 
 if __name__ == '__main__':
