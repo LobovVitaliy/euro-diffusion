@@ -44,17 +44,10 @@ class Algorithm(object):
             xs.extend((country.xl, country.xh))
             ys.extend((country.yl, country.yh))
 
-        # finds the extreme x coordinates
-        min_x = min(xs)
-        max_x = max(xs)
-
-        # finds the extreme y coordinates
-        min_y = min(ys)
-        max_y = max(ys)
-
         # builds a rectangular area
-        y_range = range(max_y - min_y + 1)
-        x_range = range(max_x - min_x + 1)
+        y_range = range(max(ys) - min(ys) + 1)
+        x_range = range(max(xs) - min(xs) + 1)
+
         return [[None for _ in y_range] for _ in x_range]
 
     # creates cities
