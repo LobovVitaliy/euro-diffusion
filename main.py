@@ -8,10 +8,8 @@ def print_result(i, result):
         print(r[0], r[1])
 
 
-def main():
-    # fill tasks
-
-    with open('file', 'r') as file:
+def fill_tasks(filename):
+    with open(filename, 'r') as file:
         country_count = int(file.readline())
 
         tasks = []
@@ -30,8 +28,10 @@ def main():
 
             country_count = int(file.readline())
 
-    # make tasks
+        return tasks
 
+
+def make_tasks(tasks):
     case_number = 1
 
     for lines in tasks:
@@ -47,6 +47,11 @@ def main():
         except Exception as e:
             print('\nCase Number {}'.format(case_number))
             print('Error: {}'.format(e))
+
+
+def main():
+    tasks = fill_tasks('file')
+    make_tasks(tasks)
 
 
 if __name__ == '__main__':
