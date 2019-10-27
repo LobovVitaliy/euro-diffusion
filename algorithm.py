@@ -3,8 +3,22 @@ from country import Country
 
 
 class Algorithm(object):
+    MAX_XY_VALUE = 10
+
     def __init__(self):
         self.countries = []
+
+    @staticmethod
+    def check_max_xy_value(country_name, value, coord):
+        if not 1 <= value <= Algorithm.MAX_XY_VALUE:
+            raise Exception('In {}: value {} is not in range 1 ≤ {} ≤ {}'
+                            .format(country_name, value, coord, Algorithm.MAX_XY_VALUE))
+
+    @staticmethod
+    def check_xy_range(country_name, value_l, value_h, coord_l, coord_h):
+        if value_l > value_h:
+            raise Exception('In {}: value {}:{} > {}:{}'
+                            .format(country_name, coord_l, value_l, coord_h, value_h))
 
     # parses country from string and adds this country
     def add_country(self, string):
@@ -13,23 +27,17 @@ class Algorithm(object):
         if len(name) > 25:
             raise Exception('Name has more than 25 characters')
 
-        # translate into integer value ​​and
-        # add a new coordinate system relative to the point (0;0)
-        xl, yl, xh, yh = map(lambda p: int(p) - 1, coordinates)
+        xl, yl, xh, yh = map(int, coordinates)
 
-        if not 0 <= xl <= 9:
-            raise Exception('1 ≤ xl ≤ 10')
+        Algorithm.check_max_xy_value(name, xl, 'xl')
+        Algorithm.check_max_xy_value(name, yl, 'yl')
+        Algorithm.check_max_xy_value(name, xh, 'xh')
+        Algorithm.check_max_xy_value(name, yh, 'yh')
 
-        if not 0 <= yl <= 9:
-            raise Exception('1 ≤ yl ≤ 10')
+        Algorithm.check_xy_range(name, xl, xh, 'xl', 'xh')
+        Algorithm.check_xy_range(name, yl, yh, 'yl', 'yh')
 
-        if not 0 <= xh <= 9:
-            raise Exception('1 ≤ xh ≤ 10')
-
-        if not 0 <= yl <= 9:
-            raise Exception('1 ≤ yl ≤ 10')
-
-        self.countries.append(Country(name, xl, yl, xh, yh))
+        self.countries.append(Country(name, xl - 1, yl - 1, xh - 1, yh - 1))
 
     # creates an empty area where cities are located
     # depending on the position of countries
